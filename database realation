@@ -1,0 +1,440 @@
+string query1="SELECT [code]  FROM [ray].[MercPrincipals] where ID='"+formObject.DomainObject.UserCompanyName.ID.ToString()+"'";
+string code = bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(query1)[0].ToString();
+ if (Convert.ToInt32(code)>=1000)
+کاربر جزء مشتریان می باشد.
+ {
+formControl.RayAutoCompleteDropDownList1.Enabled=false;
+formControl.RayDatePicker1.Enabled=false;
+formControl.RayTime1.Enabled=false;
+}
+else
+{
+formControl.RayAutoCompleteDropDownList1.Enabled=true;
+formControl.RayDatePicker1.Enabled=true;
+formControl.RayTime1.Enabled=true;
+}
+---------------------------------------------------------------------------------
+      string query1="SELECT [code]  FROM [ray].[MercPrincipals] where ID='"+formObject.DomainObject.UserCompanyName.ID.ToString()+"'";
+string code = bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(query1)[0].ToString();
+ if (Convert.ToInt32(code)>= 1000)
+ {
+}
+else
+{
+formControl.RayAutoCompleteDropDownList8.Enabled = true ;
+}
+----------------------------------------------------------------------------------------------------------------------------------------
+ if(System.Diagnostics.Debugger.IsAttached)
+    System.Diagnostics.Debugger.Break();
+ domainObject.ReqNo = domainObject.TrackingCode; 
+کدرهگیری را در شماره درخواست بریزد.  
+string query1="SELECT [ID]  FROM [ray].[MercPrincipals] where ID='"+bpmAppService.BPMSServices.MercuryService.CurrentUser.ID.ToString()+"'";
+--------------------------------------------------------------------------------------------------------------------------------------------
+
+string id = bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(query1)[0].ToString();
+string query2 = "SELECT [StaffID]  FROM [ray].[MercStaffUsers] where UserID='" + id + "'";
+برای پیداکردن سمت کاربرجاری اگر id کابر جاری برابر UserID باشد آنگاه  IDسمت ((StaffID را بر میگرداند و داخل  query2می ریزد
+    string currentstaffId=" ";
+ 
+    foreach (string stf in bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(query2))
+    {
+        currentstaffId = stf;
+        break;
+        
+    }
+    if (currentstaffId == "c4bbe6b4-35a5-4e62-9321-c55f100b7e2c")
+  {
+            bpmAppService.BPMSServices.ProcessService.RaiseEvent(Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RaySupport.ListenEvents.is_manager, domainObject);
+        }
+        else
+        {
+            bpmAppService.BPMSServices.ProcessService.RaiseEvent(Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RaySupport.ListenEvents.is_customer, domainObject);
+
+        }
+
+///////////// RaySys 
+System.Collections.IList list = bpmAppService.BPMSServices.HQLService.ExecuteHqlQuery(" From BPMAPP_RaySys"); 
+System.Collections.Generic.List<Rayvarz.BPMApp.RaySupport.Model.BPMAPP_RaySys> GList = new System.Collections.Generic.List<Rayvarz.BPMApp.RaySupport.Model.BPMAPP_RaySys>();
+foreach (Rayvarz.BPMApp.RaySupport.Model.BPMAPP_RaySys item in list)
+{
+    GList.Add(item);
+}
+domainObject.BPMAPP_RaySysesConnect = GList;
+
+/////////////TypeSupport 
+اطلاعات جدول  ReqTypeSupport را از پایگاه داده واکشی کرده و در متغییر list قرار می دهدو یک ردیف به گرید نوع درخواست پشتیبانی اضافه می کند.
+System.Collections.IList list2 = bpmAppService.BPMSServices.HQLService.ExecuteHqlQuery(" From BPMAPP_ReqTypeSupport");
+System.Collections.Generic.List<Rayvarz.BPMApp.RaySupport.Model.BPMAPP_ReqTypeSupport> GList2 = new System.Collections.Generic.List<Rayvarz.BPMApp.RaySupport.Model.BPMAPP_ReqTypeSupport>();
+foreach (Rayvarz.BPMApp.RaySupport.Model.BPMAPP_ReqTypeSupport item in list2)
+{
+    GList2.Add(item);
+}
+
+domainObject.BPMAPP_ReqTypeSupportsConnect = GList2;
+//////////////Result
+اطلاعات جدول  SUpportActionResult را از پایگاه داده واکشی کرده و در متغییر list قرار می دهدو یک ردیف به گرید نتيجه پشتيباني اضافه می کند.
+System.Collections.IList list3 = bpmAppService.BPMSServices.HQLService.ExecuteHqlQuery(" From BPMAPP_SUpportActionResult");
+System.Collections.Generic.List<Rayvarz.BPMApp.RaySupport.Model.BPMAPP_SUpportActionResult> GList3 = new System.Collections.Generic.List<Rayvarz.BPMApp.RaySupport.Model.BPMAPP_SUpportActionResult>();
+foreach (Rayvarz.BPMApp.RaySupport.Model.BPMAPP_SUpportActionResult item in list3)
+{
+    GList3.Add(item);
+}
+
+domainObject.BPMAPP_SUpportActionResultsResultConnect = GList3;
+
+//////////////////ref type
+اطلاعات جدول  ReferenceType را از پایگاه داده واکشی کرده و در متغییر list قرار می دهدو یک ردیف به گرید نوع ارجاع درخواست پشتيباني اضافه می کند.
+System.Collections.IList list4 = bpmAppService.BPMSServices.HQLService.ExecuteHqlQuery(" From BPMAPP_ReferenceType");
+System.Collections.Generic.List<Rayvarz.BPMApp.RaySupport.Model.BPMAPP_ReferenceType> GList4 = new System.Collections.Generic.List<Rayvarz.BPMApp.RaySupport.Model.BPMAPP_ReferenceType>();
+foreach (Rayvarz.BPMApp.RaySupport.Model.BPMAPP_ReferenceType item in list4)
+{
+    GList4.Add(item);
+}
+
+domainObject.BPMAPP_ReferenceTypesReferenceConnect = GList4;
+
+
+
+کنش RaySupport (خدمات پشتیبانی)
+if(System.Diagnostics.Debugger.IsAttached)
+    System.Diagnostics.Debugger.Break();
+formObject.DomainObject.UserCompanyName = bpmAppService.BPMSServices.MercuryService.CurrentUser;
+فراخوانی کاربر جاری CurrentUser،عنوان کاربر جاری را در UserCompanyName قرار می دهد
+string query1="SELECT [ID]  FROM [ray].[MercPrincipals] where ID='"+formObject.DomainObject.UserCompanyName.ID.ToString()+"'";
+string id = bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(query1)[0].ToString();
+ID را از جدول MercPrincipals انتخاب کرده درصورتی که شناسه(ID) نام شرکت جاری برابر ID باشد مقدارش را در query1 بریز
+string query2="SELECT [GroupID]  FROM [ray].[MercPrincipalGroupMembers] where PrincipalID='"+id+"'";
+string group_id = bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(query2)[0].ToString();
+ if (group_id=="3cfdc538-50a6-4a36-961d-dbfc9b6601b3")
+اگر شناسه وارد شده برابر مقدار بالا باشد کاربر جزء گروه مشتريان دفتر بجنورد 
+ {
+
+ formObject.DomainObject.UserExpertReference  = bpmAppService.BPMSServices.MercuryService.GetPrincipal("e1a90193-c70f-4326-a8aa-35355ed7f740") as Rayvarz.Profiles.User ;
+که درخواست پشتیبانی به مدير پشتيباني - دفتر بجنورد فرستاده می شود 
+}
+else if (group_id=="857415da-8280-4d45-adeb-c2782c41e8f1")
+در غیر اینصورت اگر بامقدار بالا برابر باشد درخواست جزء  گروه مشتريان دفتر مشهد – شهرداريها است
+
+{
+
+ formObject.DomainObject.UserExpertReference  = bpmAppService.BPMSServices.MercuryService.GetPrincipal("b7e491aa-d9de-483a-9a29-f970004a4a0c") as Rayvarz.Profiles.User ;
+که به مدير پشتيباني – شهرداريها می رود	
+}
+else if (group_id=="7e8c28ff-33f0-4095-b4e1-be47a0f1935f")
+در غیر اینصورت شناسه برابر مقدار بالا بوده و درخواست جزء گروه مشتريان دفتر مشهد -  غير شهرداريها است 
+
+{
+
+ formObject.DomainObject.UserExpertReference  = bpmAppService.BPMSServices.MercuryService.GetPrincipal("9856daa1-47ee-490d-a970-1adc5ffc7aa3") as Rayvarz.Profiles.User ;
+ که به مدير پشتيباني - دفاتر غيرشهرداري می رود
+
+
+}
+else if (group_id=="4f0ea288-9f2c-43d4-b490-d5173bc823db")
+در غیر اینصورت شناسه برابر مقدار بالا بوده و درخواست جزء گروه مشتريان - مهندس كريمي است 
+
+{
+
+ formObject.DomainObject.UserExpertReference  = bpmAppService.BPMSServices.MercuryService.GetPrincipal("71808d1c-6e54-4f74-a048-7c7cf2af6779") as Rayvarz.Profiles.User ;
+که به مدير پشتيباني - آقاي مهندس كريمي - می رود
+}
+else
+
+{
+formObject.DomainObject.UserExpertReference = bpmAppService.BPMSServices.MercuryService.CurrentUser;
+}
+
+کنش های قبل از اجرای فرم :
+کنش UpLoadRefAction(بار گذاری ارجاعات و اقدامات)
+      System.Collections.IList list = bpmAppService.BPMSServices.HQLService.ExecuteHqlQuery(" From BPMAPP_References where RefGdiUpdateId='"+domainObject.Id.ToString()+"'");
+یک لیست جدید می سازد از جدول ارجاعات درخواست پشتیبانی RefGdiUpdateId به شرطی که شناسه آپديت جدول ارجاعات برابر Id کاربر باشد
+System.Collections.Generic.List<Rayvarz.BPMApp.RaySupport.Model.BPMAPP_References> GList = new System.Collections.Generic.List<Rayvarz.BPMApp.RaySupport.Model.BPMAPP_References>();
+foreach (Rayvarz.BPMApp.RaySupport.Model.BPMAPP_References item in list)
+وهر دفعه یک ردیف به گرید اضافه میکند.
+{
+    GList.Add(item);
+}
+domainObject.BPMAPP_ReferencesesReferences= GList;
+//ACTIONLIST
+لیست اقدامات :
+یک لیست جدید می سازد و از جدول لیست اقدامات و هر دفعه یک ردیف به گرید اضافه می کند
+System.Collections.IList list2 = bpmAppService.BPMSServices.HQLService.ExecuteHqlQuery(" From BPMAPP_ActionList where objectid='"+domainObject.Id.ToString()+"'");
+System.Collections.Generic.List<Rayvarz.BPMApp.RaySupport.Model.BPMAPP_ActionList> GList2 = new System.Collections.Generic.List<Rayvarz.BPMApp.RaySupport.Model.BPMAPP_ActionList>();
+foreach (Rayvarz.BPMApp.RaySupport.Model.BPMAPP_ActionList item in list2)
+{
+    GList2.Add(item);
+}
+
+domainObject.BPMAPP_ActionListsActionListConnect = GList2;
+کنش های بعد از ثبت فرم آغازین:
+کنش  ReferenceCheckCode(کنترل کد ارجاع)
+هنگامی که فیلدهای فرم پر می شود کد بررسی میکند که آیا کد ارجاع تکراری است که در این صورت پیغام خطا می دهد درصورت تکراری نبودن کد به گرید یک ردیف اضافه می شود.
+ bool flag = true;
+string query = " From BPMAPP_ReferenceType where ReferenceCode='" + domainObject.ReferenceCode.ToString() + "'";
+System.Collections.IList list = bpmAppService.BPMSServices.HQLService.ExecuteHqlQuery(query);
+
+if (list.Count != 0)
+    flag = false;
+else flag = true;
+
+if (flag == false)
+{
+    actionResult.Result = Rayvarz.BPMS.RuleModel.Result.Error;
+";كد ارجاع تكراري است     actionResult.Message = "
+}
+کنش StartFormLoad(بارگذاری فرم آغازین) :
+  
+      domainObject.ChangeTitleForm="A.V";
+      domainObject.DontDoExpDsc="A.V";
+
+
+کنش SuppResultCheckCode(کنترل کد نتیجه):
+هنگامی که فیلدهای فرم پر می شود کد بررسی میکند که آیا کد نتیجه تکراری است که در این صورت پیغام خطا می دهد درصورت تکراری نبودن کد به گرید یک ردیف اضافه می شود.
+bool flag = true;
+string query = " From BPMAPP_SUpportActionResult where ResultCode='" + domainObject.ResultCode.ToString() + "'";
+System.Collections.IList list = bpmAppService.BPMSServices.HQLService.ExecuteHqlQuery(query);
+
+if (list.Count != 0)
+    flag = false;
+else flag = true;
+
+if (flag == false)
+{
+    actionResult.Result = Rayvarz.BPMS.RuleModel.Result.Error;
+";    كد نتيجه تكراري است actionResult.Message = "
+}
+کنش SysCheckCode (کنترل کد سیستم):
+هنگامی که فیلدهای فرم پر می شود کد بررسی میکند که آیا کد سیستم تکراری است که در این صورت پیغام خطا می دهد درصورت تکراری نبودن کد به گرید یک ردیف اضافه می شود.
+ bool flag = true;
+string query = " From BPMAPP_RaySys where SysCode='" + domainObject.SysCode.ToString() + "'";
+System.Collections.IList list = bpmAppService.BPMSServices.HQLService.ExecuteHqlQuery(query);
+
+if (list.Count != 0)
+    flag = false;
+else flag = true;
+
+if (flag == false)
+{
+    actionResult.Result = Rayvarz.BPMS.RuleModel.Result.Error;
+ "; كد سيستم تكراري است"   actionResult.Message = 
+}
+کنش TypeSupCheckCode(کنترل کد نوع پشتیبانی):
+هنگامی که فیلدهای فرم پر می شود کد بررسی میکند که آیا کد نوع پشتیبانی تکراری است که در این صورت پیغام خطا می دهد درصورت تکراری نبودن کد به گرید یک ردیف اضافه می شود.
+ bool flag = true;
+string query = " From BPMAPP_ReqTypeSupport where TypeCode='" + domainObject.TypeCode.ToString() + "'";
+System.Collections.IList list = bpmAppService.BPMSServices.HQLService.ExecuteHqlQuery(query);
+
+if (list.Count != 0)
+    flag = false;
+else flag = true;
+
+if (flag == false)
+{
+    actionResult.Result = Rayvarz.BPMS.RuleModel.Result.Error;
+  ";كد پشتيباني تكراري است   actionResult.Message = "
+}
+کنش های بعد از ثبت فرم:
+کنش ActionListInser (ثبت لیست اقدامات)
+در فرآیندخدمات پشتیبانی رایورز برای Step کارشناس پشتیبانی رخدادActionDo) : اقدام گردید)فراخوانی میگردد.	
+if (eventName == Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RayMngSupport.HumanEvents.ActionDo.ToString())
+ {
+//---------------------------convert date
+(فیلد ObjectId را از جدول TaskTimeSheet بشرطی که ObjectId برابر Id کاربر و RefferTo.ID برابر UserId باشد از پایگاه داده واکشی کرده و و تک تک این اقدامات را در یک لیست ریخته)
+هرکدام از اقدامات که توسط کارشناس پشتیبانی انجام می شود در تایم شیت به عنوان یک کار انجام شده ثبت می گردد و توسط مدیر پشتیبانی هرکدام از این اقدامات که مورد تایید باشد اتخاب شده و پس از تایید و خاتمه کار در لیست اقدامات (که در Stepمدیر پشتیبانی قابل رویت می باشد) اضافه می گردد. 
+   string query4 = "FROM TaskTimeSheet where ObjectId='" + domainObject.Id.ToString() + "' and UserId='" + domainObject.UserRefferTo.ID.ToString() + "'";
+   System.Collections.IList list = bpmAppService.BPMSServices.HQLService.ExecuteHqlQuery(query4);
+   if ( list.Count==0)
+   {
+        actionResult.Result = Rayvarz.BPMS.RuleModel.Result.Error;
+;      "هيج اقدامي براي اين درخواست ثبت نگرديده است"  actionResult.Message = 
+   }
+   for (int i = 0; i < list.Count; i++)
+    {
+       var x = (Rayvarz.BPMS.Model.TaskTimeSheet)list[i];
+        Rayvarz.BPMApp.RaySupport.Model.BPMAPP_ActionList   reff = bpmAppService.BPMSServices.DomainObjectService.CreateDomainObject(typeof(Rayvarz.BPMApp.RaySupport.
+Model.BPMAPP_ActionList)) as Rayvarz.BPMApp.RaySupport.Model.BPMAPP_ActionList;
+        reff.UserId = x.UserId.ToString();
+       reff.ObjectId = x.ObjectId.ToString();
+    //---------------------------convert date
+در تایم شیت هر کاری در همان روزی که انجام می شود تاریخ جاری سیستم در آن درج میگردد برای تبدیل به تاریخ جاری از کد زیر استفاده می کنیم  System.Globalization.PersianCalendar PerCal = new System.Globalization.PersianCalendar();         
+   string Year, Day, Month;           
+        Year = PerCal.GetYear(x.Date).ToString();          
+           Month = PerCal.GetMonth(x.Date).ToString();          
+             Day = PerCal.GetDayOfMonth(x.Date).ToString();           
+               Day =(Day.Length == 1)?"0"+ Day :Day;           
+                 Month =(Month.Length == 1)?"0"+ Month:Month;
+                   string date1 = Year + Month + Day;
+//------------------------
+       reff.Date = Convert.ToDecimal(date1);        
+        reff.StartTime = x.StartTime;
+        reff.EndTime = x.EndTime;
+        reff.Description = x.Description;
+        reff.CompanyName = domainObject.UserCompanyName.ID.ToString();
+        string query2 = "select [Title] FROM  [ray].[MercPrincipals] where ID='" + domainObject.UserCompanyName.ID.ToString() + "'";
+        reff.CompanyTit=bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(query2)[0].ToString();
+        string query3 = "select [Title] FROM  [ray].[MercPrincipals] where ID='" + x.UserId.ToString() + "'";
+        reff.UserTit=bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(query3)[0].ToString();
+
+        bpmAppService.BPMSServices.DomainObjectService.SaveDomainObject(reff);
+    }
+}
+  if (eventName == Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RayMngSupport.HumanEvents.FailureToDo.ToString())
+هنگامی که فرآیند ، رخداد FailureToDo (عدم انجام کار)را فراخوانی می کند
+ {
+  ";عدم انجام كار domainObject.ChangeTitleForm="
+}
+ if (eventName == Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RayMngSupport.HumanEvents.ActionDo.ToString()  )
+هنگامی که فرآیند ، رخداد ActionDo (اقدام گردید)را فراخوانی می کند
+{
+//---------------------------convert date
+";اقدام گرديد domainObject.ChangeTitleForm="
+}
+ if ( eventName == Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RayMngSupport.HumanEvents.RefToContinu.ToString() )
+هنگامی که فرآیند ، رخداد RefToContinu (ارجاع جهت ادامه کار)را فراخوانی می کند
+{
+//---------------------------convert date
+ ";ارجاع ادامه كار به كارشناس ديگر domainObject.ChangeTitleForm="
+}
+کنش ActionsInsert (ثبت اقدامات):
+اگر فرآیند ،رخداد ActionOk را فراخوانی کند،
+ActionOk : تایید و خاتمه کار. Step امور مشتریان-مدیریت پشتیبانی 
+     bool _ok = false;
+   if (eventName == Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RayMngSupport.HumanEvents.ActionOk.ToString())
+هنگامی که فرآیند ، رخداد ActionOk (تایید و خاتمه کار)را فراخوانی می کند
+   {
+    foreach (Rayvarz.BPMApp.RaySupport.Model.BPMAPP_ActionList  actionList in domainObject.BPMAPP_ActionListsActionListConnect) 
+{
+            
+                //actionList.
+میریزد dt تاريخ ميلادي امروزرا میگیرد ودر 
+            DateTime dt = new DateTime();               
+            dt = bpmAppService.HelperServices.DateTimeService.GetGregorianDate((int)actionList.Date);
+تبديل تاريخ شمسي از نوع عددي به ميلادي
+به روز کردن تاریخ و زمان شروع و پایان بوسیله مقادیر داخل لیست اقدامات با تاریخ و زمان شروع و پایان تایم شیت
+
+            string MDate = dt.ToString("yyyy-MM-dd");
+            string sql = "update ray.BPMS_TaskTimeSheet set StartTime='" + actionList.StartTime.ToString() + "' ,EndTime='" + actionList.EndTime.ToString() + "' ,Date='" + MDate + "' where ObjectID='" + actionList.ObjectId.ToString()+"'";
+           //string sql=string.Empty;
+           bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(sql);
+اگر رخدادد فراخوانی شده بود و از لیست اقدامات اقدامی انتخاب نشده بود پیغام خطا را نمایش می دهد.و سپس عنوان فرم را نیز تغییر می دهد.
+            if(actionList.ActionOk == true)
+            {
+                _ok = true;
+            }
+    
+       }
+  
+         string _Err=string.Empty;
+         if(_ok == false)
+         {
+             _Err="لطفا حداقل يكي از اقدامات را تاييد نماييد.";
+         }
+         if(!string.IsNullOrEmpty(_Err))
+         {
+             actionResult.Result=Rayvarz.BPMS.RuleModel.Result.Error;
+             actionResult.Message=_Err;
+         }
+
+domainObject.ChangeTitleForm="نتيجه اقدام بررسي و مورد تاييد است";
+    
+ Rayvarz.BPMApp.RaySupport.Model.BPMAPP_Action  reff = bpmAppService.BPMSServices.DomainObjectService.CreateDomainObject(typeof(Rayvarz.BPMApp.RaySupport.Model.BPMAPP_Action)) as  Rayvarz.BPMApp.RaySupport.Model.BPMAPP_Action;
+یک شی جدید بانام reff از نوع Action ایجاده کرده
+    string query2 = "select [Title] FROM  [ray].[MercPrincipals] where ID='" + domainObject.UserCompanyName.ID.ToString() + "'";
+    string query3 = "select [ID] FROM  [ray].[MercPrincipals] where ID='" + domainObject.UserCompanyName.ID.ToString() + "'";
+string startdate = "SELECT  MIN( Date) from ray.BPMS_TaskTimeSheet where objectid='" + domainObject.Id.ToString() + "' group by ObjectId";
+string enddate="SELECT     max( Date) from ray.BPMS_TaskTimeSheet where objectid='" + domainObject.Id.ToString() + "' group by ObjectId";
+string MDurationOfAction = "SELECT     sum(DATEDIFF(MINUTE,StartTime,EndTime)) from ray.BPMS_TaskTimeSheet where objectid='" + domainObject.Id.ToString() + "' group by ObjectId";
+ string objectid="SELECT     objectid from ray.BPMS_TaskTimeSheet where objectid='" + domainObject.Id.ToString() + "' group by ObjectId";
+ 
+    reff.CompanyName = bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(query3)[0].ToString();
+  reff.CompanyTit = bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(query2)[0].ToString();
+  reff.ActinResult=domainObject.ActinResult;
+  reff.CompanyBranch=domainObject.CompanyBranch;
+  reff.TaskId=bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(objectid)[0].ToString();
+  reff.SysName=domainObject.SysName;
+  reff.MDurationOfAction=Convert.ToInt32(bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(MDurationOfAction)[0].ToString());
+  reff.Dsc=domainObject.Dsc;
+    //---------------------------convert date1
+   
+System.Globalization.PersianCalendar PerCal = new System.Globalization.PersianCalendar();         
+   string Year1, Day1, Month1;           
+        Year1 = PerCal.GetYear(Convert.ToDateTime(bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(startdate)[0].ToString())).ToString();          
+           Month1 = PerCal.GetMonth(Convert.ToDateTime(bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(startdate)[0].ToString())).ToString();          
+             Day1 = PerCal.GetDayOfMonth(Convert.ToDateTime(bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(startdate)[0].ToString())).ToString();           
+               Day1 =(Day1.Length == 1)?"0"+ Day1 :Day1;           
+                 Month1 =(Month1.Length == 1)?"0"+ Month1:Month1;
+                   string date1 = Year1 + Month1 + Day1;
+//------------------------
+       reff.ActionStartDate= Convert.ToDecimal(date1);
+       
+          //---------------------------convert date2
+System.Globalization.PersianCalendar PerCal2 = new System.Globalization.PersianCalendar();         
+   string Year2, Day2, Month2;           
+        Year2 = PerCal2.GetYear(Convert.ToDateTime(bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(enddate)[0].ToString())).ToString();          
+           Month2 = PerCal2.GetMonth(Convert.ToDateTime(bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(enddate)[0].ToString())).ToString();          
+             Day2 = PerCal2.GetDayOfMonth(Convert.ToDateTime(bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(enddate)[0].ToString())).ToString();           
+               Day2 =(Day2.Length == 1)?"0"+ Day2 :Day2;           
+                 Month2 =(Month2.Length == 1)?"0"+ Month2:Month2;
+                   string date2 = Year2 + Month2 + Day2;
+//------------------------
+       reff.ActionEndDate= Convert.ToDecimal(date2);
+
+    reff.BPMAPP_RaySupportActionId=domainObject;
+  
+    bpmAppService.BPMSServices.DomainObjectService.SaveDomainObject(reff);    
+  }
+  if (eventName == Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RayMngSupport.HumanEvents.ActionNotOK.ToString())
+زمانی که فرآیند رخداد ActionNotOK (ارجاع به کارشناس دیگر) را فراخوانی میکند
+{
+domainObject.ChangeTitleForm="اقدام صورت گرفته معتبر نمي باشد";
+}
+           
+کنش InsertRefferTo (درج فیلد ارجاع):
+زمانی که فرآیند رخداد is_manager(مدیر) را فراخوانی میکند
+ if (eventName == Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RaySupport.ListenEvents.is_manager.ToString())
+    {
+    domainObject.UserRefferTo =formObject.DomainObject.UserExpertReference;
+    }
+کنش ReferenceInsert (ثبت ارجاعات):
+زمانی که فرآیند ، رخداد Action (ارجاع) یا رخداد ExpEdit (ارجاع به کارشناس جهت اصلاح) را فراخوانی میکند. و در گرید لیست ارجاعات درج می کند.
+if (eventName == Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RayMngSupport.HumanEvents.Action.ToString() || eventName == Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RaySupport.HumanEvents.ExpEdit.ToString() )
+{
+domainObject.ChangeTitleForm="<b> اقدام شود  </b> ";    
+ Rayvarz.BPMApp.RaySupport.Model.BPMAPP_References  reff = bpmAppService.BPMSServices.DomainObjectService.CreateDomainObject(typeof(Rayvarz.BPMApp.RaySupport.Model.BPMAPP_References) as Rayvarz.BPMApp.RaySupport.Model.BPMAPP_References;
+  
+    string query1="SELECT [Title]  FROM [ray].[MercPrincipals] where ID='"+domainObject.UserRefferTo.ID.ToString()+"'";
+    string query2 = "select [ReferenceTit] FROM  [ray].[BPMAPP_ReferenceType] where ReferenceCode='" + domainObject.ReferenceType.ToString() + "'";
+    reff.ActionExpName = domainObject.UserRefferTo.ID;
+    reff.ActionExpTit = bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(query1)[0].ToString();
+    reff.RefType = domainObject.ReferenceType;
+    reff.RefTypeTit = bpmAppService.BPMSServices.SqlService.ExecuteSqlQuery(query2)[0].ToString();
+    reff.RefTime = domainObject.RefTime;
+    reff.ReffDsc = domainObject.ReffDsc;
+    reff.RefDate = domainObject.RefDate;
+    reff.DontDoExpDsc=domainObject.DontDoExpDsc;
+reff.RefGdiUpdateId=domainObject.Id.ToString();
+    reff.BPMAPP_RaySupportReferencesId=domainObject;
+    bpmAppService.BPMSServices.DomainObjectService.SaveDomainObject(reff);    
+  }
+زمانی که فرآیند ، رخداد ContDontKnow (ارجاع به فروش) را فراخوانی میکند
+  
+  if (eventName == Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RayMngSupport.HumanEvents.ContDontKnow.ToString())
+  {
+  domainObject.ChangeTitleForm="عدم آگاهي از وجود قرارداد";
+}
+
+کنش SaleInsert (ثبت فروش):
+ if (eventName==Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RayMngSupport.HumanEvents.ContOK.ToString())
+زمانی که فرآیند ، رخداد  ContOK (ارجاع به مسئول کنترل) را فراخوانی میکند
+{
+domainObject.ChangeTitleForm="قرارداددارد"; 
+}
+  if (eventName == Rayvarz.BPMApp.RaySupport.Events.BPMAPP_RayMngSupport.HumanEvents.ContNotOK.ToString())
+زمانی که فرآیند ، رخداد  ContNotOK (ارجاع به مشتری) را فراخوانی میکند
+{
+domainObject.ChangeTitleForm="قرارداد ندارد  ";
+}
+کنش Timesheet_Update (بروز رسانی تایم شیت):
+کنش غیر فعال می باشد.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------
